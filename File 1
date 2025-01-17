@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAV Anime World</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to VAV's World</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About VAV</a></li>
+                <li><a href="story-updates.html">Story Updates</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Discover VAV's Story</h2>
+            <p>Welcome to the official site of VAV. Explore his adventures, connect with fans, and stay updated.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 VAV Anime World. All rights reserved.</p>
+    </footer>
+</body>
+</html>
