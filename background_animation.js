@@ -12,6 +12,11 @@ const maxBuildingHeight = canvas.height * 0.7;
 const minBuildingWidth = 60;
 const maxBuildingWidth = 120;
 
+// Flying vehicles properties
+const vehicles = [];
+const numVehicles = 10; // Number of flying vehicles
+const vehicleColors = ["#ff007f", "#00ffff", "#ffcc00", "#00ff00"];
+
 // Create buildings
 function createBuildings() {
     for (let i = 0; i < numBuildings; i++) {
@@ -30,10 +35,25 @@ function createBuildings() {
     }
 }
 
+// Create flying vehicles
+function createVehicles() {
+    for (let i = 0; i < numVehicles; i++) {
+        vehicles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * (canvas.height * 0.4), // Fly above buildings
+            width: Math.random() * 20 + 30,
+            height: Math.random() * 10 + 5,
+            speed: Math.random() * 2 + 1,
+            color: vehicleColors[Math.floor(Math.random() * vehicleColors.length)],
+        });
+    }
+}
+
 // Draw the city
 function drawCity() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Draw buildings
     buildings.forEach((building) => {
         // Building fill gradient
         const gradient = ctx.createLinearGradient(
@@ -63,7 +83,7 @@ function drawCity() {
             building.currentHeight += building.growthRate;
         }
 
-        // Futuristic window effects
+        // Windows with glow
         ctx.shadowBlur = 0; // Reset shadow for windows
         ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
         for (let i = 10; i < building.currentHeight; i += 30) {
@@ -78,12 +98,30 @@ function drawCity() {
         }
     });
 
+    // Draw flying vehicles
+    vehicles.forEach((vehicle) => {
+        // Draw vehicle body
+        ctx.fillStyle = vehicle.color;
+        ctx.fillRect(vehicle.x, vehicle.y, vehicle.width, vehicle.height);
+
+        // Draw vehicle glow
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = vehicle.color;
+
+        // Simulate movement
+        vehicle.x += vehicle.speed;
+        if (vehicle.x > canvas.width) {
+            vehicle.x = -vehicle.width; // Reset position to the left
+        }
+    });
+
     // Continue animation
     requestAnimationFrame(drawCity);
 }
 
 // Initialize and start animation
 createBuildings();
+createVehicles();
 drawCity();
 
 // Adjust canvas size on window resize
@@ -91,5 +129,7 @@ window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     buildings.length = 0; // Reset buildings
+    vehicles.length = 0; // Reset vehicles
     createBuildings(); // Recreate buildings
+    createVehicles(); // Recreate vehicles
 });
