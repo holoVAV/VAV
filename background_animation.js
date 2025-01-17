@@ -1,59 +1,69 @@
-const canvas = document.getElementById('backgroundCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("backgroundCanvas");
+const ctx = canvas.getContext("2d");
 
-// Resize canvas to fit the window
+// Set canvas size
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// Array to hold particle data
-const particles = [];
-const particleCount = 100;
+// Building properties
+const buildings = [];
+const numBuildings = 20; // Number of buildings
+const maxBuildingHeight = canvas.height * 0.6;
+const minBuildingWidth = 40;
+const maxBuildingWidth = 100;
 
-// Function to create particles
-function createParticles() {
-    for (let i = 0; i < particleCount; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 3 + 1,
-            dx: (Math.random() - 0.5) * 2,
-            dy: (Math.random() - 0.5) * 2,
-            color: `rgba(0, 255, 255, ${Math.random()})`,
+// Create buildings
+function createBuildings() {
+    for (let i = 0; i < numBuildings; i++) {
+        const width = Math.random() * (maxBuildingWidth - minBuildingWidth) + minBuildingWidth;
+        buildings.push({
+            x: (i / numBuildings) * canvas.width,
+            y: canvas.height,
+            width,
+            currentHeight: 0, // Start with height 0
+            targetHeight: Math.random() * maxBuildingHeight + 50,
+            growthRate: Math.random() * 2 + 1,
+            color: `rgba(100, 100, 100, ${Math.random() * 0.7 + 0.3})`, // Random gray tones
         });
     }
 }
 
-// Function to draw particles
-function drawParticles() {
+// Draw the city
+function drawCity() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((particle) => {
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
-        ctx.fill();
 
-        // Move particles
-        particle.x += particle.dx;
-        particle.y += particle.dy;
+    buildings.forEach((building) => {
+        // Draw the building
+        ctx.fillStyle = building.color;
+        ctx.fillRect(building.x, building.y - building.currentHeight, building.width, building.currentHeight);
 
-        // Wrap particles around edges
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
+        // Simulate growth
+        if (building.currentHeight < building.targetHeight) {
+            building.currentHeight += building.growthRate;
+        }
+
+        // Add scaffolding lines (development phase effect)
+        ctx.strokeStyle = "rgba(200, 200, 200, 0.5)";
+        for (let i = 10; i < building.currentHeight; i += 20) {
+            ctx.beginPath();
+            ctx.moveTo(building.x, building.y - i);
+            ctx.lineTo(building.x + building.width, building.y - i);
+            ctx.stroke();
+        }
     });
 
-    requestAnimationFrame(drawParticles);
+    // Continue animation
+    requestAnimationFrame(drawCity);
 }
 
-// Initialize particles and start animation
-createParticles();
-drawParticles();
+// Initialize and start animation
+createBuildings();
+drawCity();
 
-// Resize canvas on window resize
-window.addEventListener('resize', () => {
+// Adjust canvas size on window resize
+window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    particles.length = 0; // Clear existing particles
-    createParticles();
+    buildings.length = 0; // Reset buildings
+    createBuildings(); // Recreate buildings
 });
