@@ -7,30 +7,29 @@ canvas.height = window.innerHeight;
 
 // Building properties
 const buildings = [];
-const numBuildings = 15; // Number of buildings
+const numBuildings = 15;
 const maxBuildingHeight = canvas.height * 0.7;
-const minBuildingWidth = 60;
-const maxBuildingWidth = 120;
+const minBuildingWidth = 80;
+const maxBuildingWidth = 150;
 
 // Flying vehicles properties
 const vehicles = [];
-const numVehicles = 10; // Number of flying vehicles
+const numVehicles = 10;
 const vehicleColors = ["#ff007f", "#00ffff", "#ffcc00", "#00ff00"];
 
 // Create buildings
 function createBuildings() {
     for (let i = 0; i < numBuildings; i++) {
         const width = Math.random() * (maxBuildingWidth - minBuildingWidth) + minBuildingWidth;
-        const x = (i / numBuildings) * canvas.width + Math.random() * 30; // Slight random offset
+        const x = (i / numBuildings) * canvas.width + Math.random() * 30;
         buildings.push({
             x,
             y: canvas.height,
             width,
-            currentHeight: 0, // Start with height 0
+            currentHeight: 0,
             targetHeight: Math.random() * maxBuildingHeight + 50,
             growthRate: Math.random() * 2 + 0.5,
-            color: `hsl(${Math.random() * 360}, 70%, 50%)`, // Random neon colors
-            lightIntensity: Math.random() * 0.5 + 0.5, // Glow intensity
+            color: `hsl(${Math.random() * 360}, 70%, 50%)`,
         });
     }
 }
@@ -40,22 +39,19 @@ function createVehicles() {
     for (let i = 0; i < numVehicles; i++) {
         vehicles.push({
             x: Math.random() * canvas.width,
-            y: Math.random() * (canvas.height * 0.4), // Fly above buildings
-            width: Math.random() * 20 + 30,
-            height: Math.random() * 10 + 5,
+            y: Math.random() * (canvas.height * 0.4),
+            width: Math.random() * 40 + 30,
+            height: Math.random() * 15 + 10,
             speed: Math.random() * 2 + 1,
             color: vehicleColors[Math.floor(Math.random() * vehicleColors.length)],
         });
     }
 }
 
-// Draw the city
-function drawCity() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw buildings
+// Draw buildings with details
+function drawBuildings() {
     buildings.forEach((building) => {
-        // Building fill gradient
+        // Building gradient
         const gradient = ctx.createLinearGradient(
             building.x,
             building.y - building.currentHeight,
@@ -65,71 +61,73 @@ function drawCity() {
         gradient.addColorStop(0, "rgba(0, 255, 255, 0.8)");
         gradient.addColorStop(1, building.color);
 
-        // Draw the building
+        // Draw the building structure
         ctx.fillStyle = gradient;
         ctx.fillRect(building.x, building.y - building.currentHeight, building.width, building.currentHeight);
 
-        // Neon glow effect
-        ctx.shadowBlur = 20 * building.lightIntensity;
-        ctx.shadowColor = building.color;
-
-        // Building outline
-        ctx.strokeStyle = building.color;
-        ctx.lineWidth = 2;
-        ctx.strokeRect(building.x, building.y - building.currentHeight, building.width, building.currentHeight);
+        // Draw details (antennas, lights, etc.)
+        ctx.fillStyle = "#fff";
+        for (let i = 0; i < 5; i++) {
+            const lightX = building.x + Math.random() * building.width;
+            const lightY = building.y - Math.random() * building.currentHeight;
+            ctx.fillRect(lightX, lightY, 4, 4); // Lights as small squares
+        }
 
         // Simulate growth
         if (building.currentHeight < building.targetHeight) {
             building.currentHeight += building.growthRate;
         }
-
-        // Windows with glow
-        ctx.shadowBlur = 0; // Reset shadow for windows
-        ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-        for (let i = 10; i < building.currentHeight; i += 30) {
-            for (let j = 10; j < building.width; j += 20) {
-                ctx.fillRect(
-                    building.x + j,
-                    building.y - i,
-                    10,
-                    15 // Window size
-                );
-            }
-        }
     });
+}
 
-    // Draw flying vehicles
+// Draw flying vehicles with details
+function drawVehicles() {
     vehicles.forEach((vehicle) => {
         // Draw vehicle body
         ctx.fillStyle = vehicle.color;
         ctx.fillRect(vehicle.x, vehicle.y, vehicle.width, vehicle.height);
 
-        // Draw vehicle glow
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = vehicle.color;
+        // Add cockpit (a smaller rectangle)
+        ctx.fillStyle = "#000";
+        ctx.fillRect(vehicle.x + vehicle.width * 0.3, vehicle.y + vehicle.height * 0.2, vehicle.width * 0.4, vehicle.height * 0.6);
+
+        // Add lights (small glowing dots)
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.arc(vehicle.x + 5, vehicle.y + vehicle.height / 2, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.arc(vehicle.x + vehicle.width - 5, vehicle.y + vehicle.height / 2, 3, 0, Math.PI * 2);
+        ctx.fill();
 
         // Simulate movement
         vehicle.x += vehicle.speed;
         if (vehicle.x > canvas.width) {
-            vehicle.x = -vehicle.width; // Reset position to the left
+            vehicle.x = -vehicle.width;
         }
     });
-
-    // Continue animation
-    requestAnimationFrame(drawCity);
 }
 
-// Initialize and start animation
+// Animation loop
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawBuildings();
+    drawVehicles();
+
+    requestAnimationFrame(animate);
+}
+
+// Initialize the scene
 createBuildings();
 createVehicles();
-drawCity();
+animate();
 
-// Adjust canvas size on window resize
+// Adjust canvas size on resize
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    buildings.length = 0; // Reset buildings
-    vehicles.length = 0; // Reset vehicles
-    createBuildings(); // Recreate buildings
-    createVehicles(); // Recreate vehicles
+    buildings.length = 0;
+    vehicles.length = 0;
+    createBuildings();
+    createVehicles();
 });
