@@ -2,11 +2,13 @@
 
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0f7ff; /* Light bluish background */
-    color: #333;
+    background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+    background-size: 300% 300%;
+    animation: gradientAnimation 15s ease infinite;
+    color: white;
 }
 
 header {
@@ -33,9 +35,11 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 1.2em;
+    transition: color 0.3s ease-in-out;
 }
 
 nav ul li a:hover {
+    color: #ff007f;
     text-decoration: underline;
 }
 
@@ -52,17 +56,20 @@ footer {
 
 /* Button Styles */
 button {
-    background-color: #0073e6; /* Button blue */
+    background-color: #ff007f; /* Button blue */
     color: white;
     border: none;
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
     border-radius: 5px;
+    box-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #005bb5; /* Darker blue */
+    transform: scale(1.1);
 }
 
 /* Form Styles */
@@ -84,8 +91,9 @@ section {
     margin-bottom: 40px;
 }
 
-h2 {
-    color: #004080;
+h1, h2 {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
 }
 
 /* Responsive Design */
@@ -106,4 +114,39 @@ h2 {
     button {
         width: 100%;
     }
+}
+
+/* Background Animation */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Futuristic UI Elements */
+.hero {
+    text-align: center;
+    padding: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    box-shadow: 0 0 20px #00ffff;
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.line {
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #00ffff, transparent);
+    animation: moveLine 2s linear infinite;
+}
+
+@keyframes moveLine {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(100%); }
 }
