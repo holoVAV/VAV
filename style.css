@@ -1,216 +1,82 @@
-/* style.css */
+/* style.css for Newspaper-like Display */
 
-/* General Styles */
 body {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f5f5f0;
+    color: #333;
     margin: 0;
     padding: 0;
-    background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
-    background-size: 300% 300%;
-    animation: gradientAnimation 15s ease infinite;
-    color: white;
 }
 
 header {
-    background-color: #004080; /* Deep blue */
-    color: white;
-    padding: 1em 0;
     text-align: center;
+    background-color: #f2e6d9;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
 }
 
-nav ul {
-    list-style-type: none;
+header h1 {
+    font-size: 2.5em;
+    font-weight: bold;
     margin: 0;
-    padding: 0;
+}
+
+nav {
     display: flex;
     justify-content: center;
-    background-color: #00509e; /* Medium blue */
+    background-color: #e6dfd4;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
-nav ul li {
+nav a {
     margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
     text-decoration: none;
-    font-size: 1.2em;
-    transition: color 0.3s ease-in-out;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
-nav ul li a:hover {
-    color: #ff007f;
+nav a:hover {
     text-decoration: underline;
 }
 
 main {
+    display: flex;
+    flex-wrap: wrap;
     padding: 20px;
+    gap: 20px;
+}
+
+article {
+    flex: 1 1 300px;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+article h2 {
+    font-size: 1.5em;
+    margin: 0 0 10px;
+}
+
+article p {
+    line-height: 1.6;
+    text-align: justify;
 }
 
 footer {
     text-align: center;
-    background-color: #004080;
-    color: white;
-    padding: 1em 0;
-}
-
-/* Button Styles */
-button {
-    background-color: #ff007f; /* Button blue */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #005bb5; /* Darker blue */
-    transform: scale(1.1);
-}
-
-/* Form Styles */
-form {
+    background-color: #f2e6d9;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
     margin-top: 20px;
 }
 
-input[type="email"] {
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 250px;
-    margin-right: 10px;
-}
-
-/* Section Styles */
-section {
-    margin-bottom: 40px;
-}
-
-h1, h2 {
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin: 10px 0;
-    }
-
-    input[type="email"] {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    button {
-        width: 100%;
-    }
-}
-
-/* Background Animation */
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Futuristic UI Elements */
-.hero {
-    text-align: center;
-    padding: 50px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    box-shadow: 0 0 20px #00ffff;
-}
-
-.card {
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
-
-.line {
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(to bottom, #00ffff, transparent);
-    animation: moveLine 2s linear infinite;
-}
-
-@keyframes moveLine {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(100%); }
-}
-#backgroundCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Keeps it behind all other content */
-    pointer-events: none; /* Prevents it from interfering with clicks */
-}
-nav ul {
-    list-style-type: none;
+footer p {
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    font-size: 0.9em;
+    color: #666;
 }
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: #00ffff;
-    text-decoration: none;
-    font-size: 1.2em;
-    position: relative;
-}
-
-nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    display: block;
-    margin-top: 5px;
-    right: 0;
-    background: #00ffff;
-    transition: width 0.3s ease;
-    -webkit-transition: width 0.3s ease;
-}
-
-nav ul li a:hover::after {
-    width: 100%;
-    left: 0;
-    background: #00ffff;
-}
-button {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #00ffff;
-    border: 2px solid #00ffff;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-button:hover {
-    background-color: #00ffff;
-    color: #000;
-}
-
