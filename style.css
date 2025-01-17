@@ -74,6 +74,13 @@ footer {
     border-top: 1px solid #ccc;
     margin-top: 20px;
 }
+body {
+  background-image: url('./assets/VAV_background_2560x1440.webp'); /* Adjust the path as necessary */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
 
 footer p {
     margin: 0;
