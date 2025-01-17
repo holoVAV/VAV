@@ -8,7 +8,7 @@
 /* Body Styling */
 body {
   background-image: url('VAV_background_2560x1440.webp'); /* Adjust the path based on your folder structure */
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-attachment: fixed;
   font-family: 'Arial', sans-serif;
