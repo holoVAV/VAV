@@ -7,7 +7,7 @@
 
 /* Body Styling */
 body {
-  background-image: url('./assets/VAV_background_2560x1440.webp'); /* Adjust the path based on your folder structure */
+  background-image: url('VAV_background_2560x1440.webp'); /* Adjust the path based on your folder structure */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
