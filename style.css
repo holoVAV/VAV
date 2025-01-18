@@ -7,7 +7,7 @@
 
 /* Body Styling */
 body {
-  background-image: url('VAV_background.webp'); /* Adjust the path based on your folder structure */
+  background-image: url('VAV_background_2560x1440.webp'); /* Adjust the path based on your folder structure */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -109,7 +109,7 @@ footer a:hover {
   body {
     margin: 0;
     padding: 0;
-    background-image: url('VAV_background.webp'); /* Update with the correct path */
+    background-image: url('VAV_background_2560x1440.webp'); /* Update with the correct path */
     background-size: cover; /* Ensure the image covers the entire viewport */
     background-position: top center; /* Focus on the top part of the image */
     background-repeat: no-repeat; /* Prevent repeating the image */
